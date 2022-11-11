@@ -34,12 +34,12 @@
             android:text="VIBRATION" />
 
         <Button
-            android:id="@+id/btn_speaker"
+            android:id="@+id/btn_sound"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5px"
             android:layout_weight="1"
-            android:text="SPEAKER" />
+            android:text="SOUND" />
 
     </LinearLayout>
 
@@ -51,12 +51,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_receiver"
+            android:id="@+id/btn_touch_id"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5px"
             android:layout_weight="1"
-            android:text="RECEIVER" />
+            android:text="TOUCH ID"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_camera"
