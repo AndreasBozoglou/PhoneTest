@@ -1,13 +1,17 @@
 package com.example.phonetest
 
+import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.phonetest.R
@@ -16,13 +20,16 @@ import java.util.jar.Manifest
 
 class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
 
-    private var MICROPHONE_PERMISSION_CODE = 200
-    private val mediaRecorder: MediaRecorder? = null
 
+    private val MICROPHONE_PERMISSION_CODE: Int = 200
+    var mediaRecorder: MediaRecorder? = null
+    var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_microphone)
+
+
 
         val btnStart = findViewById<Button>(R.id.btn_start)
         val btnStop = findViewById<Button>(R.id.btn_stop)
@@ -36,6 +43,7 @@ class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
 
         if (isMicrophonePresent()) {
             getMicrophonePermission()
+
         }
 
     }
@@ -45,34 +53,56 @@ class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
             R.id.btn_start -> start()
             R.id.btn_stop -> stop()
             R.id.btn_play -> play()
-            R.id.btn_delete -> delete()
+            R.id.btn_delete -> deleteFile()
 
 
         }
     }
 
-    private fun play() {
+    private fun start() {
+        val fileLocation = "${externalCacheDir?.absolutePath}/audiorecordtest.3gp"
+        mediaRecorder = MediaRecorder()
+        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        mediaRecorder?.setOutputFile(fileLocation)
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
 
-        val outputFile = Environment.getExternalStorageDirectory().absolutePath + "test#gpp"
 
-        mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-        mediaRecorder.setOutputFile(outputFile)
+
+        mediaRecorder?.prepare()
+        mediaRecorder?.start()
     }
-
-
 
     private fun stop() {
-        TODO("Not yet implemented")
+        mediaRecorder?.stop()
+        mediaRecorder?.release()
+        mediaRecorder = null
     }
 
-    private fun start() {
-        TODO("Not yet implemented")
+    private fun play() {
+        val fileLocation = "${externalCacheDir?.absolutePath}/audiorecordtest.3gp"
+        if (File(fileLocation).exists()){
+
+            mediaPlayer = MediaPlayer()
+            mediaPlayer?.setDataSource(fileLocation)
+            mediaPlayer?.prepare()
+            mediaPlayer?.start()
+
+        }
+    }
+    private fun stopPlayback(){
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+    private fun deleteFile() {
+        val fileLocation = "${externalCacheDir?.absolutePath}/audiorecordtest.3gp"
+        if (File(fileLocation).exists()){
+            File(fileLocation).delete()
+            Toast.makeText(this, "File Deleted", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun delete() {
-        TODO("Not yet implemented")
-    }
 
     private fun isMicrophonePresent(): Boolean {
         if (this.packageManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)){

@@ -20,7 +20,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat.from
 import java.util.Date.from
 import java.util.concurrent.Executor
 
@@ -73,7 +72,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btnSound = findViewById<Button>(R.id.btn_sound)
         val btnProximity = findViewById<Button>(R.id.btn_proximity)
         val btnTouch = findViewById<Button>(R.id.btn_touch)
-        val btnTouchId = findViewById<Button>(R.id.btn_touch_id)
+        //val btnTouchId = findViewById<Button>(R.id.btn_touch_id)
+        val btnMic = findViewById<Button>(R.id.btn_mic_test)
 
 
 
@@ -91,10 +91,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnSound.setOnClickListener(this)
         btnProximity.setOnClickListener(this)
         btnTouch.setOnClickListener(this)
-        /*btnTouchId.setOnClickListener{
-            biometricPrompt.authenticate(promptInfo)
-
-        }*/
+        btnMic.setOnClickListener(this)
 
 
 
@@ -118,7 +115,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_black -> blackScreen()
             R.id.btn_sound -> activateSpeaker()
             R.id.btn_proximity -> proximity()
-            //R.id.btn_touch -> touch()
+            R.id.btn_touch -> touch()
+            R.id.btn_mic_test -> microphone()
 
 
 
@@ -128,11 +126,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun microphone() {
+        val intent = Intent(this, MainActivityMicrophone::class.java)
+        startActivity(intent)
+    }
 
-    /*private fun touch() {
+
+    private fun touch() {
         val intent = Intent(this, TouchScreen::class.java)
         startActivity(intent)
-    }*/
+    }
 
     private fun proximity() {
         val intent = Intent(this, MainActivityProximity::class.java)
