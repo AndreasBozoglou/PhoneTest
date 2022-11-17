@@ -3,6 +3,7 @@ package com.example.phonetest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.biometrics.BiometricManager
 import android.hardware.biometrics.BiometricPrompt
 import android.hardware.camera2.CameraAccessException
@@ -27,9 +28,10 @@ import java.util.concurrent.Executor
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     var flashLightStatus: Boolean = false
     private var rq : Int = 123
-    private lateinit var executor: Executor
-    private lateinit var biometricPrompt: androidx.biometric.BiometricPrompt
-    private lateinit var promptInfo: PromptInfo
+
+
+
+
 
 
 
@@ -138,8 +140,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun proximity() {
+
         val intent = Intent(this, MainActivityProximity::class.java)
         startActivity(intent)
+
+
     }
 
     private fun blackScreen() {

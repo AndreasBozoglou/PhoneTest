@@ -24,15 +24,18 @@ class MainActivityProximity : AppCompatActivity() {
 
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-
-
-        if(proximitySensor==null){
-            Toast.makeText(this,"Proximity Sensor is not Available", Toast.LENGTH_SHORT).show()
-            finish()
-        }else {
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null){
+            proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
             sensorManager.registerListener(proximitySensorEventListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
+        }else{
+
+            Toast.makeText(this, "Proximity Sensor is not Available", Toast.LENGTH_SHORT).show()
+            finish()
         }
+
+
+
+
 
 
 
