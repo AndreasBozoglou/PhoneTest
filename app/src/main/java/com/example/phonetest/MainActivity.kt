@@ -1,33 +1,31 @@
 package com.example.phonetest
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.biometrics.BiometricManager
-import android.hardware.biometrics.BiometricPrompt
 import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.media.MediaPlayer
-import android.os.Build
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Vibrator
 import android.provider.MediaStore
-import android.transition.TransitionInflater.from
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.biometric.BiometricPrompt.PromptInfo
-import androidx.core.content.ContextCompat
-import java.util.Date.from
-import java.util.concurrent.Executor
+import androidx.core.os.postDelayed
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     var flashLightStatus: Boolean = false
     private var rq : Int = 123
+    var flag = false
+    var player: MediaPlayer? = null
+
+
+
+
 
 
 
@@ -42,25 +40,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /* executor = ContextCompat.getMainExecutor(this)
-        biometricPrompt = androidx.biometric.BiometricPrompt(this@MainActivity,executor, object : androidx.biometric.BiometricPrompt.AuthenticationCallback(){
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                super.onAuthenticationError(errorCode, errString)
-                Toast.makeText(this@MainActivity, "Fingerprint is Working", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
-                super.onAuthenticationSucceeded(result)
-                Toast.makeText(this@MainActivity, "Fingerprint is Working", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-                Toast.makeText(this@MainActivity, "Fingerprint is Working", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        promptInfo = PromptInfo.Builder().setTitle("Fingerprint Test").build()*/
 
 
 
@@ -74,8 +53,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btnSound = findViewById<Button>(R.id.btn_sound)
         val btnProximity = findViewById<Button>(R.id.btn_proximity)
         val btnTouch = findViewById<Button>(R.id.btn_touch)
-        //val btnTouchId = findViewById<Button>(R.id.btn_touch_id)
         val btnMic = findViewById<Button>(R.id.btn_mic_test)
+
 
 
 
@@ -100,7 +79,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
 
+
+
     }
+
 
 
     override fun onClick(p0: View?) {
@@ -155,22 +137,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun activateSpeaker() {
 
 
+        if (player == null && !flag){
 
-        var player: MediaPlayer? = null
-
-
-
-        if (player == null){
-
+            flag = true
             player = MediaPlayer.create(this, R.raw.sound)
 
 
-            player.start()
+            player?.start()
+            //stopPlayer(player)
 
+            Handler(Looper.getMainLooper()).postDelayed({
+                flag = false
+                player?.release()
+                player = null
 
-            stopPlayer(player)
-
-
+            },6000)
 
         }
 
@@ -180,17 +161,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun stopPlayer(player: MediaPlayer?) {
-        var mdP : MediaPlayer? = player
-        while (mdP != null) {
-            if (player?.isPlaying ?:  Boolean == false){
-                mdP.release()
-                mdP = null
-                Toast.makeText(this, "Media Player Released", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-    }
 
     private fun greenScreen() {
         val intent = Intent(this, MainActivityGreen::class.java)
@@ -217,38 +187,56 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
 
+
     private fun vibrate() {
 
-        val vibrationService = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        vibrationService.vibrate(1000)
+        val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT>=26){
+            vibrator.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE))
+        }else
+            vibrator.vibrate(1000)
+
+
 
     }
 
     private fun flashLight() {
         val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         val cameraId = cameraManager.cameraIdList[0]
-        if (!flashLightStatus) {
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    cameraManager.setTorchMode(cameraId, true)
-                }
-                flashLightStatus = true
+        val hasFlash = this.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+        if(hasFlash){
+            if (!flashLightStatus) {
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        cameraManager.setTorchMode(cameraId, true)
+                    }
+                    flashLightStatus = true
 
-            } catch (e: CameraAccessException) {
-            }
-        } else {
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    cameraManager.setTorchMode(cameraId, false)
+                } catch (e: CameraAccessException) {
                 }
-                flashLightStatus = false
-            } catch (e: CameraAccessException) {
+            } else {
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        cameraManager.setTorchMode(cameraId, false)
+                    }
+                    flashLightStatus = false
+                } catch (e: CameraAccessException) {
+                }
             }
+        }else{
+            Toast.makeText(this,"Your device does not have Flashlight",Toast.LENGTH_SHORT).show()
         }
+
     }
 
 
+
+
 }
+
+
+
+
 
 
 
