@@ -1,18 +1,6 @@
 package com.example.phonetest
 
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraManager
 import android.media.MediaPlayer
-import android.os.Build
-import android.os.Handler
-import android.os.Looper
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.provider.MediaStore
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,9 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.example.phonetest.navigation.Screen
 
@@ -93,28 +78,13 @@ fun MainScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             CustomButton(text = "RED") {
-                /*startActivity(
-                    Intent(
-                        this@MainActivity,
-                        MainActivityRed::class.java
-                    )
-                )*/
+                navController.navigate(Screen.RedScreen.route)
             }
             CustomButton(text = "GREEN") {
-                /*startActivity(
-                    Intent(
-                        this@MainActivity,
-                        MainActivityGreen::class.java
-                    )
-                )*/
+                navController.navigate(Screen.GreenScreen.route)
             }
             CustomButton(text = "BLUE") {
-                /*startActivity(
-                    Intent(
-                        this@MainActivity,
-                        MainActivityBlue::class.java
-                    )
-                )*/
+                navController.navigate(Screen.BlueScreen.route)
             }
         }
 
