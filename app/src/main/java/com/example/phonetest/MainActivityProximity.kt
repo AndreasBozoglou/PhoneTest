@@ -25,7 +25,7 @@ class MainActivityProximity : AppCompatActivity() {
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         if(sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null){
-            proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+            proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)!!
             sensorManager.registerListener(proximitySensorEventListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
         }else{
 
