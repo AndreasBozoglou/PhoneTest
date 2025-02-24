@@ -1,6 +1,7 @@
 package com.example.phonetest.presentation
 
 
+import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,7 +11,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Navigation()
+            val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+            Navigation(sensorManager)
         }
     }
 }

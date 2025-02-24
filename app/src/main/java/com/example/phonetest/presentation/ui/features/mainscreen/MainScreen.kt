@@ -96,12 +96,7 @@ fun MainScreen(navController: NavController) {
                 navController.navigate(Screen.BlackScreen.route)
             }
             CustomButton(text = "PROXIMITY") {
-                /*startActivity(
-                    Intent(
-                        this@MainActivity,
-                        MainActivityProximity::class.java
-                    )
-                )*/
+                navController.navigate(Screen.ProximityScreen.route)
             }
         }
     }

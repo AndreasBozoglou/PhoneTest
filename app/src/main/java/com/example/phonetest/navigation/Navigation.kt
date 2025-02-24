@@ -1,5 +1,6 @@
 package com.example.phonetest.navigation
 
+import android.hardware.SensorManager
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,10 +9,11 @@ import com.example.phonetest.presentation.ui.features.blackscreen.BlackScreen
 import com.example.phonetest.presentation.ui.features.bluescreen.BlueScreen
 import com.example.phonetest.presentation.ui.features.greenscreen.GreenScreen
 import com.example.phonetest.presentation.ui.features.mainscreen.MainScreen
+import com.example.phonetest.presentation.ui.features.proximityscreen.ProximityScreen
 import com.example.phonetest.presentation.ui.features.redscreen.RedScreen
 
 @Composable
-fun Navigation() {
+fun Navigation(sensorManager: SensorManager) {
     val navController = rememberNavController()
 
     NavHost(
@@ -37,7 +39,7 @@ fun Navigation() {
 
         }
         composable(route = Screen.ProximityScreen.route) {
-
+            ProximityScreen(sensorManager)
         }
         composable(route = Screen.TouchScreen.route) {
 
