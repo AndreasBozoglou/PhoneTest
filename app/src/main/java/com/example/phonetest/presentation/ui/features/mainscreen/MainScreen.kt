@@ -1,4 +1,4 @@
-package com.example.phonetest
+package com.example.phonetest.presentation.ui.features.mainscreen
 
 import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Arrangement

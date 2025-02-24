@@ -1,21 +1,19 @@
-package com.example.phonetest
+package com.example.phonetest.presentation.ui.features.mictestscreen
 
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.os.*
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.postDelayed
 import com.example.phonetest.R
 import java.io.File
-import java.util.jar.Manifest
 
 class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
 
@@ -126,11 +124,7 @@ class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
 
 
     private fun isMicrophonePresent(): Boolean {
-        if (this.packageManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)){
-            return true
-        }else {
-            return false
-        }
+        return this.packageManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)
     }
 
     private fun getMicrophonePermission () {

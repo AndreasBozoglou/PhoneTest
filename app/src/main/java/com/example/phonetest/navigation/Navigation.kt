@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.phonetest.BlackScreen
-import com.example.phonetest.BlueScreen
-import com.example.phonetest.GreenScreen
-import com.example.phonetest.MainScreen
-import com.example.phonetest.RedScreen
+import com.example.phonetest.presentation.ui.features.blackscreen.BlackScreen
+import com.example.phonetest.presentation.ui.features.bluescreen.BlueScreen
+import com.example.phonetest.presentation.ui.features.greenscreen.GreenScreen
+import com.example.phonetest.presentation.ui.features.mainscreen.MainScreen
+import com.example.phonetest.presentation.ui.features.redscreen.RedScreen
 
 @Composable
 fun Navigation() {

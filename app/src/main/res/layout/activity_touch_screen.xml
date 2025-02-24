@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.PhoneTest"
-    tools:context=".TouchScreen">
+    tools:context=".presentation.ui.features.touchtestscreen.TouchScreen">
 
 
     <com.mihir.drawingcanvas.drawingView

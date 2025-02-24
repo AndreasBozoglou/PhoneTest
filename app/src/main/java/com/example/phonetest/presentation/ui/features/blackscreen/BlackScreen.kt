@@ -1,4 +1,4 @@
-package com.example.phonetest
+package com.example.phonetest.presentation.ui.features.blackscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -7,18 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
-/*
-class MainActivityGreen : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_green)
-    }
-}*/
 @Composable
-fun GreenScreen() {
+fun BlackScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Green)
+            .background(Color.Black)
     )
 }

@@ -1,15 +1,15 @@
-package com.example.phonetest
+package com.example.phonetest.presentation.ui.features.proximityscreen
 
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.phonetest.R
 
 class MainActivityProximity : AppCompatActivity() {
     lateinit var sensorManager: SensorManager

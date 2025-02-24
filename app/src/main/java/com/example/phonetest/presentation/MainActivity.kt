@@ -1,44 +1,10 @@
-package com.example.phonetest
-
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraCharacteristics
-import android.hardware.camera2.CameraManager
-import android.media.MediaPlayer
-import android.os.*
-import androidx.appcompat.app.AppCompatActivity
-import android.provider.MediaStore
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
-import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+package com.example.phonetest.presentation
 
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.core.os.postDelayed
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
-import androidx.navigation.compose.NavHost
+import androidx.activity.compose.setContent
 import com.example.phonetest.navigation.Navigation
-import com.example.phonetest.navigation.Screen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
