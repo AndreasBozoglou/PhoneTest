@@ -9,6 +9,7 @@ import com.example.phonetest.presentation.ui.features.blackscreen.BlackScreen
 import com.example.phonetest.presentation.ui.features.bluescreen.BlueScreen
 import com.example.phonetest.presentation.ui.features.greenscreen.GreenScreen
 import com.example.phonetest.presentation.ui.features.mainscreen.MainScreen
+import com.example.phonetest.presentation.ui.features.mictestscreen.MicrophoneTestScreen
 import com.example.phonetest.presentation.ui.features.proximityscreen.ProximityScreen
 import com.example.phonetest.presentation.ui.features.redscreen.RedScreen
 import com.example.phonetest.presentation.ui.features.touchtestscreen.TouchScreen
@@ -37,7 +38,7 @@ fun Navigation(sensorManager: SensorManager) {
             RedScreen()
         }
         composable(route = Screen.MicTestScreen.route) {
-
+            MicrophoneTestScreen()
         }
         composable(route = Screen.ProximityScreen.route) {
             ProximityScreen(sensorManager)

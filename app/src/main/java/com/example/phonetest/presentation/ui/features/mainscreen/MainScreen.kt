@@ -59,12 +59,7 @@ fun MainScreen(navController: NavController) {
             }
             CustomButton(text = "CAMERA") { openFrontCamera() }
             CustomButton(text = "MIC TEST") {
-                /*startActivity(
-                    Intent(
-                        this@MainActivity,
-                        MainActivityMicrophone::class.java
-                    )
-                )*/
+                navController.navigate(Screen.MicTestScreen.route)
             }
         }
 
@@ -118,7 +113,7 @@ private fun vibrate() {
 
 private fun activateSpeaker(player: MediaPlayer?, flag: Boolean, updateState: (MediaPlayer?, Boolean) -> Unit) {
     /*if (player == null && !flag) {
-        val newPlayer = MediaPlayer.create(LocalContext.current, R.raw.sound)
+        val newPlayer = MediaPlayer.create(context, R.raw.sound)
         newPlayer.start()
         updateState(newPlayer, true)
 
