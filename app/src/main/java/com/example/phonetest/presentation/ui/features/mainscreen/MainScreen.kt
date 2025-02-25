@@ -37,12 +37,7 @@ fun MainScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             CustomButton(text = "TOUCH") {
-                /*startActivity(
-                    Intent(
-                        this@MainActivity,
-                        TouchScreen::class.java
-                    )
-                )*/
+                navController.navigate(Screen.TouchScreen.route)
             }
             CustomButton(text = "VIBRATION") { vibrate() }
             CustomButton(text = "SOUND") {

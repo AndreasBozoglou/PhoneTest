@@ -1,20 +1,7 @@
 package com.example.phonetest.presentation.ui.features.mictestscreen
 
-import android.content.pm.PackageManager
-import android.media.MediaPlayer
-import android.media.MediaRecorder
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.phonetest.R
-import java.io.File
 
+/*
 class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
 
 
@@ -133,4 +120,4 @@ class MainActivityMicrophone : AppCompatActivity(), View.OnClickListener {
             ActivityCompat.requestPermissions(this, Array<String>(1) {android.Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION_CODE )
         }
     }
-}
+}*/

@@ -11,6 +11,7 @@ import com.example.phonetest.presentation.ui.features.greenscreen.GreenScreen
 import com.example.phonetest.presentation.ui.features.mainscreen.MainScreen
 import com.example.phonetest.presentation.ui.features.proximityscreen.ProximityScreen
 import com.example.phonetest.presentation.ui.features.redscreen.RedScreen
+import com.example.phonetest.presentation.ui.features.touchtestscreen.TouchScreen
 
 @Composable
 fun Navigation(sensorManager: SensorManager) {
@@ -42,7 +43,7 @@ fun Navigation(sensorManager: SensorManager) {
             ProximityScreen(sensorManager)
         }
         composable(route = Screen.TouchScreen.route) {
-
+            TouchScreen()
         }
 
     }
