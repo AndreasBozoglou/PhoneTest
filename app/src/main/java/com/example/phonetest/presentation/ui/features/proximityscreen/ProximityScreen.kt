@@ -1,11 +1,12 @@
 package com.example.phonetest.presentation.ui.features.proximityscreen
 
-import android.graphics.Color
+
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -27,7 +29,7 @@ fun ProximityScreen(sensorManager: SensorManager) {
 
     val context = LocalContext.current
     var isNear by remember { mutableStateOf(false) }
-    val backgroundColor = if (isNear) Color.GREEN else Color.RED
+    val backgroundColor = if (isNear) Color.Green else Color.Red
     val proximityText = if (isNear) "Proximity Sensor is ON" else "Proximity Sensor is OFF"
 
 
@@ -51,17 +53,18 @@ fun ProximityScreen(sensorManager: SensorManager) {
         sensorManager.registerListener(listener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
 
     }
-    //ToDo on Dispose
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = proximityText,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            //color = Color.WHITE
+            color = Color.Black
         )
     }
 
