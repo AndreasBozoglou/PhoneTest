@@ -44,7 +44,7 @@ fun Navigation(sensorManager: SensorManager) {
             ProximityScreen(sensorManager)
         }
         composable(route = Screen.TouchScreen.route) {
-            TouchScreen()
+            TouchScreen(navController)
         }
 
     }
