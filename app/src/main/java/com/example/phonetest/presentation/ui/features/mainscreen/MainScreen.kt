@@ -1,24 +1,30 @@
 package com.example.phonetest.presentation.ui.features.mainscreen
 
 import android.media.MediaPlayer
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.phonetest.navigation.Screen
+import com.example.phonetest.presentation.theme.generic_components.PhoneTestCard
+import com.example.phonetest.utils.Utils.activateSpeaker
+import com.example.phonetest.utils.Utils.flashLight
+import com.example.phonetest.utils.Utils.openFrontCamera
+import com.example.phonetest.utils.phoneTestNavigateSingleTop
 
 @Composable
 fun MainScreen(navController: NavController) {
@@ -26,22 +32,28 @@ fun MainScreen(navController: NavController) {
     var flag by remember { mutableStateOf(false) }
     var player by remember { mutableStateOf<MediaPlayer?>(null) }
     val context = LocalContext.current
+    val hapticFeedback = LocalHapticFeedback.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(Color.LightGray)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CustomButton(text = "TOUCH") {
-                navController.navigate(Screen.TouchScreen.route)
+            PhoneTestCard(text = "TOUCH") {
+                navController.phoneTestNavigateSingleTop(Screen.TouchScreen.route)
             }
-            CustomButton(text = "VIBRATION") { vibrate() }
-            CustomButton(text = "SOUND") {
-                activateSpeaker(player, flag) { updatedPlayer, updatedFlag ->
+            PhoneTestCard(text = "VIBRATION") {
+                //vibrate(context)
+                //hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+            }
+            PhoneTestCard(text = "SOUND") {
+                activateSpeaker(context, player, flag) { updatedPlayer, updatedFlag ->
                     player = updatedPlayer
                     flag = updatedFlag
                 }
@@ -52,14 +64,14 @@ fun MainScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CustomButton(text = "FLASH LIGHT") {
-                flashLight(flashLightStatus) {
+            PhoneTestCard(text = "FLASH LIGHT") {
+                flashLight(context, flashLightStatus) {
                     flashLightStatus = it
                 }
             }
-            CustomButton(text = "CAMERA") { openFrontCamera() }
-            CustomButton(text = "MIC TEST") {
-                navController.navigate(Screen.MicTestScreen.route)
+            PhoneTestCard(text = "CAMERA") { openFrontCamera(context) }
+            PhoneTestCard(text = "MIC TEST") {
+                navController.phoneTestNavigateSingleTop(Screen.MicTestScreen.route)
             }
         }
 
@@ -67,14 +79,14 @@ fun MainScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CustomButton(text = "RED") {
-                navController.navigate(Screen.RedScreen.route)
+            PhoneTestCard(text = "RED") {
+                navController.phoneTestNavigateSingleTop(Screen.RedScreen.route)
             }
-            CustomButton(text = "GREEN") {
-                navController.navigate(Screen.GreenScreen.route)
+            PhoneTestCard(text = "GREEN") {
+                navController.phoneTestNavigateSingleTop(Screen.GreenScreen.route)
             }
-            CustomButton(text = "BLUE") {
-                navController.navigate(Screen.BlueScreen.route)
+            PhoneTestCard(text = "BLUE") {
+                navController.phoneTestNavigateSingleTop(Screen.BlueScreen.route)
             }
         }
 
@@ -82,68 +94,14 @@ fun MainScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CustomButton(text = "BLACK") {
-                navController.navigate(Screen.BlackScreen.route)
+            PhoneTestCard(text = "BLACK") {
+                navController.phoneTestNavigateSingleTop(Screen.BlackScreen.route)
             }
-            CustomButton(text = "PROXIMITY") {
-                navController.navigate(Screen.ProximityScreen.route)
+            PhoneTestCard(text = "PROXIMITY") {
+                navController.phoneTestNavigateSingleTop(Screen.ProximityScreen.route)
             }
         }
     }
 }
 
-@Composable
-fun CustomButton(text: String, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier.padding(4.dp)
-    ) {
-        Text(text)
-    }
-}
 
-private fun vibrate() {
-    /*val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-    if (Build.VERSION.SDK_INT >= 26) {
-        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
-    } else {
-        vibrator.vibrate(1000)
-    }*/
-}
-
-private fun activateSpeaker(player: MediaPlayer?, flag: Boolean, updateState: (MediaPlayer?, Boolean) -> Unit) {
-    /*if (player == null && !flag) {
-        val newPlayer = MediaPlayer.create(context, R.raw.sound)
-        newPlayer.start()
-        updateState(newPlayer, true)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            newPlayer.release()
-            updateState(null, false)
-        }, 6000)
-    }*/
-}
-
-private fun openFrontCamera() {
-    /*val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-    startActivityForResult(intent, 123)*/
-}
-
-private fun flashLight(flashLightStatus: Boolean, updateStatus: (Boolean) -> Unit) {
-    /*val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-    val cameraId = cameraManager.cameraIdList[0]
-    val hasFlash = packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
-
-    if (hasFlash) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                cameraManager.setTorchMode(cameraId, !flashLightStatus)
-            }
-            updateStatus(!flashLightStatus)
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
-    } else {
-        Toast.makeText(this, "Your device does not have Flashlight", Toast.LENGTH_SHORT).show()
-    }*/
-}
