@@ -9,30 +9,41 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
 import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.example.phonetest.R
 
 object Utils {
 
-    @RequiresApi(Build.VERSION_CODES.S)
+
     fun vibrate(context: Context) {
-        /*val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val vibrator: Vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
         } else {
             context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(1000)
-        }*/
-        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-        vibrator.vibrate(1000)
+        val DELAY = 0L
+        val VIBRATE = 1000L
+        val SLEEP = 1000L
+
+
+        val vibrationPattern = longArrayOf(DELAY, VIBRATE, SLEEP)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(
+                VibrationEffect.createWaveform(
+                    vibrationPattern,
+                    VibrationEffect.DEFAULT_AMPLITUDE
+                )
+            )
+        } else {
+            vibrator.vibrate(vibrationPattern, VibrationEffect.DEFAULT_AMPLITUDE)
+        }
     }
 
     fun activateSpeaker(

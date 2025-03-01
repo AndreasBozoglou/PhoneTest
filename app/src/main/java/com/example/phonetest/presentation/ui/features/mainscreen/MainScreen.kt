@@ -24,6 +24,7 @@ import com.example.phonetest.presentation.theme.generic_components.PhoneTestCard
 import com.example.phonetest.utils.Utils.activateSpeaker
 import com.example.phonetest.utils.Utils.flashLight
 import com.example.phonetest.utils.Utils.openFrontCamera
+import com.example.phonetest.utils.Utils.vibrate
 import com.example.phonetest.utils.phoneTestNavigateSingleTop
 
 @Composable
@@ -49,7 +50,7 @@ fun MainScreen(navController: NavController) {
                 navController.phoneTestNavigateSingleTop(Screen.TouchScreen.route)
             }
             PhoneTestCard(text = "VIBRATION") {
-                //vibrate(context)
+                vibrate(context)
                 //hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
             }
             PhoneTestCard(text = "SOUND") {
