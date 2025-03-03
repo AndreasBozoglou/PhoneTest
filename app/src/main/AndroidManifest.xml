@@ -28,7 +28,7 @@
         android:theme="@style/Theme.PhoneTest"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.features.mictestscreen.MainActivityMicrophone"
+            android:name=".presentation.ui.features.mictestscreen.MicrophoneTestScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

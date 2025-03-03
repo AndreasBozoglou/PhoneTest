@@ -17,6 +17,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,11 +33,15 @@ import com.example.phonetest.presentation.ui.features.mictestscreen.viewmodel.Mi
 @Composable
 fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = viewModel()) {
     val context = LocalContext.current
+    val permissionValue = remember { mutableStateOf(false) }
 
     val permissionLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (!isGranted) {
+                permissionValue.value = false
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+            } else {
+                permissionValue.value = true
             }
         }
 
@@ -57,7 +63,13 @@ fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = viewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = { viewModel.startRecording(context) },
+            onClick = {
+                if (permissionValue.value) {
+                    viewModel.startRecording(context)
+                } else {
+                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Icon(
