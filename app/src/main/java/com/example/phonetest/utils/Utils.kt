@@ -64,7 +64,7 @@ object Utils {
         }
     }
 
-    fun openFrontCamera(context: Context) {
+    fun openCamera(context: Context) {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)

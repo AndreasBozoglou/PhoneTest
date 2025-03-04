@@ -2,10 +2,11 @@
 
     <style name="Widget.Theme.PhoneTest.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/transparent</item>
+        <item name="android:buttonBarStyle">@color/transparent</item>
     </style>
 
     <style name="Widget.Theme.PhoneTest.ButtonBar.Fullscreen" parent="">
         <item name="android:background">@color/transparent</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="android:buttonBarStyle">@color/transparent</item>
     </style>
 </resources>

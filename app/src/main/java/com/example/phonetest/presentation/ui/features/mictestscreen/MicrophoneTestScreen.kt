@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,13 +26,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.phonetest.R
+import com.example.phonetest.presentation.theme.chat1
 import com.example.phonetest.presentation.ui.features.mictestscreen.viewmodel.MicrophoneTestViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = viewModel()) {
+fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = koinViewModel()) {
     val context = LocalContext.current
     val permissionValue = remember { mutableStateOf(false) }
 
@@ -58,6 +60,7 @@ fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = viewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(chat1)
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
