@@ -46,15 +46,16 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
     Scaffold(
         topBar = {
             TopBar(
-                topBarText = "Phone Test"
+                topBarText = "Phone Test",
+                showIcon = false
             )
         }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .background(backgroundColor),
+                .background(backgroundColor)
+                .padding(paddingValues),
             verticalArrangement = Arrangement.Center
         ) {
             FlowRow(

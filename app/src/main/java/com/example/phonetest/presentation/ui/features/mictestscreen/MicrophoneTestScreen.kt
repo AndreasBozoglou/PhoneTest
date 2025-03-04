@@ -25,18 +25,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import com.example.phonetest.R
 import com.example.phonetest.presentation.theme.backgroundColor
 import com.example.phonetest.presentation.theme.containerColor
 import com.example.phonetest.presentation.theme.generic_components.PhoneTestCard
 import com.example.phonetest.presentation.ui.features.generic_components.TopBar
 import com.example.phonetest.presentation.ui.features.mictestscreen.viewmodel.MicrophoneTestViewModel
+import com.example.phonetest.utils.phoneTestNavigatePopUp
 import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = koinViewModel()) {
+fun MicrophoneTestScreen(
+    navController: NavController,
+    viewModel: MicrophoneTestViewModel = koinViewModel()
+) {
     val context = LocalContext.current
     val permissionValue = remember { mutableStateOf(false) }
 
@@ -61,7 +66,14 @@ fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = koinViewModel()) {
     }
     Scaffold(
         topBar = {
-            TopBar(topBarText = "Microphone Test")
+            TopBar(
+                topBarText = "Microphone Test",
+                showIcon = true,
+                icon = R.drawable.caret_left,
+                onIconClick = {
+                    navController.phoneTestNavigatePopUp()
+                }
+            )
         }
     ) { paddingValues ->
         Column(

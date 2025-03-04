@@ -38,7 +38,7 @@ fun Navigation(sensorManager: SensorManager) {
             RedScreen()
         }
         composable(route = Screen.MicTestScreen.route) {
-            MicrophoneTestScreen()
+            MicrophoneTestScreen(navController)
         }
         composable(route = Screen.ProximityScreen.route) {
             ProximityScreen(sensorManager)

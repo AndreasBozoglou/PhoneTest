@@ -1,11 +1,11 @@
 <resources>
 
-    <style name="Widget.Theme.PhoneTest.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+    <!--<style name="Widget.Theme.PhoneTest.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
 
 
     </style>
 
     <style name="Widget.Theme.PhoneTest.ButtonBar.Fullscreen" parent="">
 
-    </style>
+    </style>-->
 </resources>
