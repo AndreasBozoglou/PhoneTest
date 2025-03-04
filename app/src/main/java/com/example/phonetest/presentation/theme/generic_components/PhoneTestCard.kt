@@ -19,8 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.phonetest.presentation.theme.chat3
-import com.example.phonetest.presentation.theme.chat4
+import com.example.phonetest.presentation.theme.containerItemColor
+import com.example.phonetest.presentation.theme.textColor
 
 @Composable
 fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
@@ -30,7 +30,7 @@ fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
         modifier = Modifier
             .padding(8.dp)
             .size(110.dp),
-        colors = CardDefaults.cardColors(containerColor = chat3),
+        colors = CardDefaults.cardColors(containerColor = containerItemColor),
         elevation = CardDefaults.elevatedCardElevation(6.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
@@ -50,7 +50,7 @@ fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
 
             Text(
                 text = text,
-                color = chat4,
+                color = textColor,
                 fontSize = 14.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

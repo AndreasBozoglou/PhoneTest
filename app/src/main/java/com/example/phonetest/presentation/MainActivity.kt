@@ -8,7 +8,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.phonetest.navigation.Navigation
-import com.example.phonetest.presentation.theme.PhoneTestTheme1
+import com.example.phonetest.presentation.theme.PhoneTestTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +21,10 @@ class MainActivity : ComponentActivity() {
                 android.graphics.Color.TRANSPARENT,
                 android.graphics.Color.TRANSPARENT
             )
-
         )
         super.onCreate(savedInstanceState)
         setContent {
-            PhoneTestTheme1 {
+            PhoneTestTheme {
                 val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
                 Navigation(sensorManager)
             }

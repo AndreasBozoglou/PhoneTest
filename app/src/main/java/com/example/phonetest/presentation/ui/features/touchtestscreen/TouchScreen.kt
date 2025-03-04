@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -30,16 +29,8 @@ import com.example.phonetest.utils.phoneTestNavigatePopUp
 data class GridItem(val id: Int, var isActive: Boolean = false)
 @Composable
 fun TouchScreen(navController: NavController) {
-    /*val configuration = LocalConfiguration.current
-    val density = LocalDensity.current
-    val screenWidthDp = configuration.screenWidthDp
-    val screenHeightDp = configuration.screenHeightDp
-    val cellSize = 40.dp
-    val gridSize = screenWidthDp / cellSize.value.toInt()
-    val totalRows = screenHeightDp / cellSize.value.toInt()
-    val totalCells = gridSize * totalRows*/
     val context = LocalContext.current
-    val configuration = LocalConfiguration.current
+
     val density = LocalDensity.current
     val cellSize = 40.dp
 

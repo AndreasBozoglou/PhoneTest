@@ -8,30 +8,33 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.phonetest.R
-import com.example.phonetest.presentation.theme.chat1
+import com.example.phonetest.presentation.theme.backgroundColor
+import com.example.phonetest.presentation.theme.containerColor
+import com.example.phonetest.presentation.theme.generic_components.PhoneTestCard
+import com.example.phonetest.presentation.ui.features.generic_components.TopBar
 import com.example.phonetest.presentation.ui.features.mictestscreen.viewmodel.MicrophoneTestViewModel
 import org.koin.androidx.compose.koinViewModel
 
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = koinViewModel()) {
     val context = LocalContext.current
@@ -56,71 +59,58 @@ fun MicrophoneTestScreen(viewModel: MicrophoneTestViewModel = koinViewModel()) {
             permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
         }
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(chat1)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(
-            onClick = {
-                if (permissionValue.value) {
-                    viewModel.startRecording(context)
-                } else {
-                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+    Scaffold(
+        topBar = {
+            TopBar(topBarText = "Microphone Test")
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(backgroundColor)
+                .padding(paddingValues),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            FlowRow(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(containerColor)
+            ) {
+                PhoneTestCard(
+                    text = "Start Recording",
+                    icon = R.drawable.microphone
+                ) {
+                    if (permissionValue.value) {
+                        viewModel.startRecording(context)
+                    } else {
+                        permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                    }
                 }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_baseline_keyboard_voice_24),
-                contentDescription = "Start Recording"
-            )
-            Text("Start Recording")
+
+                PhoneTestCard(
+                    text = "Stop Recording",
+                    icon = R.drawable.microphone_slash
+                ) {
+                    viewModel.stopRecording()
+                }
+
+                PhoneTestCard(
+                    text = "Play Recording",
+                    icon = R.drawable.play
+                ) {
+                    viewModel.playAudio(context)
+                }
+
+                PhoneTestCard(
+                    text = "Delete Recording",
+                    icon = R.drawable.trash
+                ) {
+                    viewModel.deleteAudio(context)
+                }
+            }
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = { viewModel.stopRecording() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_baseline_stop_circle_24),
-                contentDescription = "Stop Recording"
-            )
-            Text("Stop Recording")
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = { viewModel.playAudio(context) },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_baseline_play_circle_24),
-                contentDescription = "Play Recording"
-            )
-            Text("Play Recording")
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = { viewModel.deleteAudio(context) },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_baseline_delete_forever_24),
-                contentDescription = "Delete Recording"
-            )
-            Text("Delete Recording")
-        }
-
     }
-
 }

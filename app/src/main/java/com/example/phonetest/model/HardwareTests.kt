@@ -6,6 +6,7 @@ import com.example.phonetest.navigation.Screen
 enum class HardwareTests(
     val title: String,
     val icon: Int,
+    val selectedIcon: Int = 0,
     val route: String = ""
 ) {
     VIBRATION(
@@ -18,7 +19,8 @@ enum class HardwareTests(
     ),
     FLASHLIGHT(
         title = "Flash Light",
-        icon = R.drawable.flashlight
+        icon = R.drawable.lightning,
+        selectedIcon = R.drawable.lightning_slash
     ),
     CAMERA(
         title = "Camera",
