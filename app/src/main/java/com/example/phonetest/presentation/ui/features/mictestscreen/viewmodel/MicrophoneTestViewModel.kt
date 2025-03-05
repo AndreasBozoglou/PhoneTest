@@ -10,6 +10,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.io.File
 import java.io.IOException
 
@@ -18,8 +21,9 @@ class MicrophoneTestViewModel : ViewModel() {
     private var mediaRecorder: MediaRecorder? = null
     private var mediaPlayer: MediaPlayer? = null
 
-    var isRecording by mutableStateOf(false)
-        private set
+    private val _isRecording = MutableStateFlow(false)
+    val isRecording: StateFlow<Boolean> = _isRecording.asStateFlow()
+
     var isAudioAvailable by mutableStateOf(false)
         private set
 
@@ -28,28 +32,30 @@ class MicrophoneTestViewModel : ViewModel() {
     }
 
     fun startRecording(context: Context) {
-        val file = getAudioFile(context)
-        mediaRecorder = MediaRecorder().apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setOutputFile(file.absolutePath)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            setMaxDuration(5000)
+        if (!_isRecording.value) {
+            val file = getAudioFile(context)
+            mediaRecorder = MediaRecorder().apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+                setOutputFile(file.absolutePath)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                setMaxDuration(5000)
 
-            try {
-                prepare()
-                start()
-                isRecording = true
-                Toast.makeText(context, "Recording started (5 sec)", Toast.LENGTH_SHORT).show()
-            } catch (e: IOException) {
-                e.printStackTrace()
+                try {
+                    prepare()
+                    start()
+                    _isRecording.value = true
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
-        }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            stopRecording()
-        }, 5000)
+            Handler(Looper.getMainLooper()).postDelayed({
+                stopRecording()
+            }, 5000)
+        }
     }
+
 
     fun stopRecording() {
         mediaRecorder?.apply {
@@ -57,7 +63,7 @@ class MicrophoneTestViewModel : ViewModel() {
             release()
         }
         mediaRecorder = null
-        isRecording = false
+        _isRecording.value = false
         isAudioAvailable = true
     }
 
@@ -78,7 +84,7 @@ class MicrophoneTestViewModel : ViewModel() {
         }
     }
 
-    fun stopAudio() {
+    private fun stopAudio() {
         mediaPlayer?.apply {
             stop()
             release()

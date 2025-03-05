@@ -1,4 +1,4 @@
-package com.example.phonetest.presentation.ui.features.generic_components
+package com.example.phonetest.presentation.theme.generic_components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

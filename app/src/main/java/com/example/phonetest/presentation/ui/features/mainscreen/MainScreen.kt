@@ -29,8 +29,8 @@ import com.example.phonetest.model.ScreenTests
 import com.example.phonetest.presentation.theme.backgroundColor
 import com.example.phonetest.presentation.theme.containerColor
 import com.example.phonetest.presentation.theme.generic_components.PhoneTestCard
+import com.example.phonetest.presentation.theme.generic_components.TopBar
 import com.example.phonetest.presentation.theme.textColor
-import com.example.phonetest.presentation.ui.features.generic_components.TopBar
 import com.example.phonetest.presentation.ui.features.mainscreen.viewmodel.MainScreenViewModel
 import com.example.phonetest.utils.phoneTestNavigateSingleTop
 import org.koin.androidx.compose.koinViewModel
