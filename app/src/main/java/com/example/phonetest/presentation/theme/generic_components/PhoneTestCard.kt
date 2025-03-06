@@ -1,5 +1,6 @@
 package com.example.phonetest.presentation.theme.generic_components
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.phonetest.presentation.theme.containerItemColor
-import com.example.phonetest.presentation.theme.textColor
+import com.example.phonetest.presentation.theme.onTouchIconColor
 
 @Composable
 fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
@@ -32,7 +34,10 @@ fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
             .size(110.dp),
         colors = CardDefaults.cardColors(containerColor = containerItemColor),
         elevation = CardDefaults.elevatedCardElevation(6.dp),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(12.dp),
+        interactionSource = remember { MutableInteractionSource() }.also {
+            onTouchIconColor
+        }
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -45,12 +50,14 @@ fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
                 modifier = Modifier
                     .size(32.dp)
                     .align(Alignment.CenterHorizontally),
-                tint = Color.Unspecified
+                tint = if (text == "Green Screen" || text == "Red Screen" || text == "Blue Screen" || text == "Black Screen") Color.Unspecified else Color(
+                    0xFFF0F0F0
+                )
             )
 
             Text(
                 text = text,
-                color = textColor,
+                color = Color(0xFF7C7C7C),
                 fontSize = 14.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

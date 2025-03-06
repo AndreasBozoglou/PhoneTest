@@ -44,10 +44,9 @@ fun WaveformAnimation(
             .height(60.dp)
     ) {
         val barWidth = size.width / (barCount * 2f)
-        val spacing = barWidth
 
         animatedValues.forEachIndexed { index, anim ->
-            val x = index * (barWidth + spacing)
+            val x = index * (barWidth + barWidth)
             drawRoundRect(
                 color = barColor,
                 topLeft = Offset(x, size.height / 2 - anim.value / 2),

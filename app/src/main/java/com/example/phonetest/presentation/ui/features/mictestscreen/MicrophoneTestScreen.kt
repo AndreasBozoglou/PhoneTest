@@ -38,13 +38,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.example.phonetest.R
 import com.example.phonetest.presentation.theme.backgroundColor
-import com.example.phonetest.presentation.theme.containerColor
+import com.example.phonetest.presentation.theme.containerItemColor
 import com.example.phonetest.presentation.theme.generic_components.PhoneTestAlertDialog
 import com.example.phonetest.presentation.theme.generic_components.PhoneTestButton
 import com.example.phonetest.presentation.theme.generic_components.TopBar
+import com.example.phonetest.presentation.theme.textColor
 import com.example.phonetest.presentation.ui.features.mictestscreen.components.WaveformAnimation
 import com.example.phonetest.presentation.ui.features.mictestscreen.viewmodel.MicrophoneTestViewModel
 import com.example.phonetest.utils.goToAppSettings
@@ -60,30 +64,38 @@ fun MicrophoneTestScreen(
 ) {
     val context = LocalContext.current
     val activity = LocalActivity.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val isRecording by viewModel.isRecording.collectAsState()
     val permissionValue = remember { mutableStateOf(false) }
     val showPermissionAlertDialog = remember { mutableStateOf(false) }
 
+
     val permissionLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            permissionValue.value = isGranted
             if (!isGranted) {
-                permissionValue.value = false
                 showPermissionAlertDialog.value = true
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
-            } else {
+            } /*else {
                 permissionValue.value = true
                 showPermissionAlertDialog.value = false
-            }
+            }*/
         }
 
-    LaunchedEffect(Unit) {
-        if (ContextCompat.checkSelfPermission(
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            permissionValue.value = ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.RECORD_AUDIO
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+        /*if (ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.RECORD_AUDIO
             ) == PackageManager.PERMISSION_DENIED
         ) {
             permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-        }
+        }*/
     }
 
     Scaffold(
@@ -121,20 +133,27 @@ fun MicrophoneTestScreen(
             Column(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .fillMaxWidth()
-                    .background(containerColor)
                     .clip(RoundedCornerShape(20.dp))
+                    .fillMaxWidth()
+                    .background(containerItemColor)
                     .height(250.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.microphone),
+                    painter = painterResource(
+                        if (isRecording) R.drawable.microphone_slash else R.drawable.microphone
+                    ),
                     contentDescription = "Microphone",
                     modifier = Modifier
                         .clickable {
                             if (permissionValue.value) {
-                                viewModel.startRecording(context)
+                                if (isRecording) {
+                                    viewModel.stopRecording()
+                                } else {
+                                    viewModel.startRecording(context)
+                                }
+
                             } else {
                                 permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
                             }
@@ -143,16 +162,23 @@ fun MicrophoneTestScreen(
                     tint = Color.Red
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+
                 Text(
-                    text = "Tap to Start Recording",
+                    text = if (isRecording) "Tap to Stop Recording" else "Tap to Start Recording",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = textColor
                 )
-                Spacer(modifier = Modifier.height(16.dp))
 
-                if (isRecording) {
-                    WaveformAnimation()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(80.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    if (isRecording) {
+                        WaveformAnimation()
+                    }
                 }
             }
 
@@ -162,10 +188,6 @@ fun MicrophoneTestScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                PhoneTestButton(
-                    icon = R.drawable.stop,
-                    text = "Stop Recording",
-                    onClick = { viewModel.stopRecording() })
                 PhoneTestButton(
                     icon = R.drawable.play,
                     text = "Play",

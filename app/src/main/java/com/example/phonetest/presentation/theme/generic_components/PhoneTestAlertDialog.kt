@@ -15,12 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.phonetest.presentation.theme.backgroundColor
+import com.example.phonetest.presentation.theme.textColor
 
 @Composable
 fun PhoneTestAlertDialog(
@@ -44,13 +44,13 @@ fun PhoneTestAlertDialog(
             Text(
                 modifier = Modifier.padding(top = 15.dp, bottom = 1.dp),
                 text = title,
-                color = Color.White,
+                color = textColor,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 modifier = Modifier.padding(bottom = 15.dp),
                 text = body,
-                color = Color.White,
+                color = textColor,
                 fontSize = 12.sp
             )
             HorizontalDivider(thickness = 1.dp)
@@ -63,8 +63,9 @@ fun PhoneTestAlertDialog(
             ) {
                 Text(
                     modifier = Modifier.padding(10.dp),
+                    fontWeight = FontWeight.Bold,
                     text = buttonText,
-                    color = Color.Green
+                    color = textColor
                 )
             }
         }

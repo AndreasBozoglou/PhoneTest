@@ -3,5 +3,21 @@
     <string name="title_activity_touch_screen">TouchScreen</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="proximity">proximity</string>
+
+
+    <string name="screen_tests">Screen Tests</string>
+    <string name="touch_screen">Touch Screen</string>
+    <string name="green_screen">Green Screen</string>
+    <string name="red_screen">Red Screen</string>
+    <string name="blue_screen">Blue Screen</string>
+    <string name="black_screen">Black Screen</string>
+
+    <string name="hardware_tests">Hardware Tests</string>
+    <string name="vibration">Vibration</string>
+    <string name="speaker">Speaker</string>
+    <string name="flash_light">Flash Light</string>
+    <string name="camera">Camera</string>
+    <string name="microphone">Microphone</string>
+    <string name="proximity">Proximity</string>
+
 </resources>

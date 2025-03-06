@@ -22,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.phonetest.presentation.theme.greenScreenColor
+import com.example.phonetest.presentation.theme.redScreenColor
 
 
 @Composable
@@ -29,7 +31,7 @@ fun ProximityScreen(sensorManager: SensorManager) {
 
     val context = LocalContext.current
     var isNear by remember { mutableStateOf(false) }
-    val backgroundColor = if (isNear) Color.Green else Color.Red
+    val backgroundColor = if (isNear) greenScreenColor else redScreenColor
     val proximityText = if (isNear) "Proximity Sensor is ON" else "Proximity Sensor is OFF"
 
 
