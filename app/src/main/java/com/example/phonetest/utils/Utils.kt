@@ -18,7 +18,6 @@ import com.example.phonetest.R
 
 object Utils {
 
-
     fun vibrate(context: Context) {
         val vibrator: Vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager

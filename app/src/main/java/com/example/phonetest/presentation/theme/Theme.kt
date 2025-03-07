@@ -52,7 +52,7 @@ fun PhoneTestTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        //typography = Typography(), // You can define typography separately
+        //typography = Typography(),
         content = {
             content()
         }

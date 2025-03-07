@@ -10,7 +10,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,7 +55,6 @@ import com.example.phonetest.utils.phoneTestNavigatePopUp
 import org.koin.androidx.compose.koinViewModel
 
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MicrophoneTestScreen(
     navController: NavController,
@@ -76,10 +74,7 @@ fun MicrophoneTestScreen(
             if (!isGranted) {
                 showPermissionAlertDialog.value = true
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
-            } /*else {
-                permissionValue.value = true
-                showPermissionAlertDialog.value = false
-            }*/
+            }
         }
 
     LaunchedEffect(lifecycleOwner) {
@@ -89,13 +84,6 @@ fun MicrophoneTestScreen(
                 Manifest.permission.RECORD_AUDIO
             ) == PackageManager.PERMISSION_GRANTED
         }
-        /*if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.RECORD_AUDIO
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
-            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-        }*/
     }
 
     Scaffold(
@@ -153,7 +141,6 @@ fun MicrophoneTestScreen(
                                 } else {
                                     viewModel.startRecording(context)
                                 }
-
                             } else {
                                 permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
                             }

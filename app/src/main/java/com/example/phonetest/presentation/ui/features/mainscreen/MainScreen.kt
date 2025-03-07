@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,18 +29,20 @@ import com.example.phonetest.R
 import com.example.phonetest.model.HardwareTests
 import com.example.phonetest.model.ScreenTests
 import com.example.phonetest.presentation.theme.backgroundColor
-
 import com.example.phonetest.presentation.theme.generic_components.PhoneTestCard
 import com.example.phonetest.presentation.theme.generic_components.TopBar
 import com.example.phonetest.presentation.theme.textColor
 import com.example.phonetest.presentation.ui.features.mainscreen.viewmodel.MainScreenViewModel
+import com.example.phonetest.utils.Utils.openCamera
+import com.example.phonetest.utils.Utils.vibrate
 import com.example.phonetest.utils.phoneTestNavigateSingleTop
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = koinViewModel()) {
     val flashLightStatus by viewModel.flashlightStatus.collectAsState()
+    val context = LocalContext.current
 
     val screenTestItems by remember { mutableStateOf(ScreenTests.entries) }
     val hardwareTestItems by remember { mutableStateOf(HardwareTests.entries) }
@@ -115,10 +117,10 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
                         }
                     ) {
                         when (item.title) {
-                            R.string.vibration -> viewModel.vibrate()
-                            R.string.speaker -> viewModel.activateSpeaker()
-                            R.string.flash_light -> viewModel.toggleFlashlight()
-                            R.string.camera -> viewModel.openCamera()
+                            R.string.vibration -> vibrate(context)
+                            R.string.speaker -> viewModel.activateSpeaker(context)
+                            R.string.flash_light -> viewModel.toggleFlashlight(context)
+                            R.string.camera -> openCamera(context)
                             R.string.microphone -> navController.phoneTestNavigateSingleTop(item.route)
                             else -> navController.phoneTestNavigateSingleTop(item.route)
                         }

@@ -83,7 +83,6 @@ fun TouchScreen(navController: NavController) {
                 }
             }
     ) {
-
         itemsIndexed(items) { index, item ->
             Log.i("items indexed", "${items.size}")
             Box(

@@ -8,18 +8,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class MainScreenViewModel(private val context: Context) : ViewModel() {
+class MainScreenViewModel : ViewModel() {
     private var _mediaPlayer = MutableStateFlow<MediaPlayer?>(null)
     val mediaPlayer: StateFlow<MediaPlayer?> = _mediaPlayer.asStateFlow()
 
     private var _flashlightStatus = MutableStateFlow(false)
     val flashlightStatus: StateFlow<Boolean> = _flashlightStatus.asStateFlow()
 
-    fun vibrate() {
-        Utils.vibrate(context)
-    }
 
-    fun activateSpeaker() {
+    fun activateSpeaker(context: Context) {
         Utils.activateSpeaker(
             context,
             _mediaPlayer.value,
@@ -29,11 +26,8 @@ class MainScreenViewModel(private val context: Context) : ViewModel() {
         }
     }
 
-    fun openCamera() {
-        Utils.openCamera(context)
-    }
 
-    fun toggleFlashlight() {
+    fun toggleFlashlight(context: Context) {
         Utils.flashLight(context, _flashlightStatus.value) { newState ->
             _flashlightStatus.value = newState
         }
