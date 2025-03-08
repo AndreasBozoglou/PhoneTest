@@ -73,7 +73,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
                     .fillMaxWidth()
                     .padding(8.dp)) {
                     Text(
-                        "Screen Tests",
+                        text = stringResource(R.string.screen_tests),
                         color = textColor,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
@@ -100,7 +100,7 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
                     .fillMaxWidth()
                     .padding(8.dp)) {
                     Text(
-                        "Hardware Tests",
+                        text = stringResource(R.string.hardware_tests),
                         color = textColor,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
@@ -111,7 +111,6 @@ fun MainScreen(navController: NavController, viewModel: MainScreenViewModel = ko
                         text = stringResource(item.title),
                         icon = if (stringResource(item.title) == "Flash Light") {
                             if (flashLightStatus) item.selectedIcon else item.icon
-
                         } else {
                             item.icon
                         }

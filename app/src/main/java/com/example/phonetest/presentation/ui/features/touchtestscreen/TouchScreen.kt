@@ -1,6 +1,5 @@
 package com.example.phonetest.presentation.ui.features.touchtestscreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -84,7 +83,6 @@ fun TouchScreen(navController: NavController) {
             }
     ) {
         itemsIndexed(items) { index, item ->
-            Log.i("items indexed", "${items.size}")
             Box(
                 modifier = Modifier
                     .size(cellSize)
