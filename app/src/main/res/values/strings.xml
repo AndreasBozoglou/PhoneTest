@@ -20,4 +20,14 @@
     <string name="microphone">Microphone</string>
     <string name="proximity">Proximity</string>
 
+    <string name="microphone_test">Microphone Test</string>
+    <string name="play">Play</string>
+    <string name="delete">Delete</string>
+    <string name="tap_to_start_recording"> Tap to Start recording</string>
+    <string name="tap_to_stop_recording">Tap to Stop recording</string>
+    <string name="mic_permission_alert_title">Permission Required</string>
+    <string name="mic_permission_alert_body">In order to test your microphone…</string>
+    <string name="mic_permission_alert_button">Go to App Settings</string>
+
+
 </resources>

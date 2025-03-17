@@ -23,6 +23,7 @@ import com.example.phonetest.presentation.theme.containerItemColor
 
 @Composable
 fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
+    val screensWithNoTint = setOf("Green Screen", "Red Screen", "Blue Screen", "Black Screen")
     Card(
         onClick = onClick,
         modifier = Modifier
@@ -43,9 +44,7 @@ fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
                 modifier = Modifier
                     .size(32.dp)
                     .align(Alignment.CenterHorizontally),
-                tint = if (text == "Green Screen" || text == "Red Screen" || text == "Blue Screen" || text == "Black Screen") Color.Unspecified else Color(
-                    0xFFF0F0F0
-                )
+                tint = if (text in screensWithNoTint) Color.Unspecified else Color(0xFFF0F0F0)
             )
 
             Text(

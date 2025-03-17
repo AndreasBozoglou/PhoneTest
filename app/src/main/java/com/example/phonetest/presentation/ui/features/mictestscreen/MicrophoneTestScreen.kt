@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -89,7 +90,7 @@ fun MicrophoneTestScreen(
     Scaffold(
         topBar = {
             TopBar(
-                topBarText = "Microphone Test",
+                topBarText = stringResource(R.string.microphone_test),
                 showIcon = true,
                 icon = R.drawable.caret_left,
                 onIconClick = {
@@ -100,9 +101,9 @@ fun MicrophoneTestScreen(
     ) { paddingValues ->
         if (showPermissionAlertDialog.value) {
             PhoneTestAlertDialog(
-                title = "Permission Required",
-                body = "In order to test your microphone...",
-                buttonText = "Go to App Settings",
+                title = stringResource(R.string.mic_permission_alert_title),
+                body = stringResource(R.string.mic_permission_alert_body),
+                buttonText = stringResource(R.string.mic_permission_alert_button),
                 onDismiss = { showPermissionAlertDialog.value = false },
                 onOkayClick = {
                     activity?.goToAppSettings()
@@ -151,7 +152,9 @@ fun MicrophoneTestScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = if (isRecording) "Tap to Stop Recording" else "Tap to Start Recording",
+                    text = if (isRecording) stringResource(R.string.tap_to_stop_recording) else stringResource(
+                        R.string.tap_to_start_recording
+                    ),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = textColor
@@ -177,11 +180,11 @@ fun MicrophoneTestScreen(
             ) {
                 PhoneTestButton(
                     icon = R.drawable.play,
-                    text = "Play",
+                    text = stringResource(R.string.play),
                     onClick = { viewModel.playAudio(context) })
                 PhoneTestButton(
                     icon = R.drawable.trash,
-                    text = "Delete",
+                    text = stringResource(R.string.delete),
                     onClick = { viewModel.deleteAudio(context) })
             }
         }

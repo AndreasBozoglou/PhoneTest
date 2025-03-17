@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
                 val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
                 Navigation(sensorManager)
             }
-
         }
     }
 }
