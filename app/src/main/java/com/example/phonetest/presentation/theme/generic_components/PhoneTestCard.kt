@@ -2,6 +2,8 @@ package com.example.phonetest.presentation.theme.generic_components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,13 +24,13 @@ import androidx.compose.ui.unit.sp
 import com.example.phonetest.presentation.theme.containerItemColor
 
 @Composable
-fun PhoneTestCard(text: String, icon: Int, onClick: () -> Unit) {
+fun PhoneTestCard(text: String, icon: Int, modifier: Modifier, onClick: () -> Unit) {
     val screensWithNoTint = setOf("Green Screen", "Red Screen", "Blue Screen", "Black Screen")
     Card(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .padding(8.dp)
-            .size(110.dp),
+            .aspectRatio(1f),
         colors = CardDefaults.cardColors(containerColor = containerItemColor),
         elevation = CardDefaults.elevatedCardElevation(6.dp),
         shape = RoundedCornerShape(12.dp)
